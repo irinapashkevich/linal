@@ -29,7 +29,6 @@ public:
         return z;
     };
 
-    // «адание координат
     void setX(double x){
         this->x=x;
     };
@@ -40,34 +39,20 @@ public:
         this->z=z;
     };
 
-    // ѕерегруженный оператор - сравнение двух векторов на равенство
-    bool operator== (const Vector3D& v2) const{
-        return x == v2.x && y == v2.y && z == v2.z;
-    };
-
-    // ≈щЄ один перегруженный оператор - неравенство векторов
-    // ƒа, это отдельный оператор! ’инт - насто€щие джедаи смогут дл€ != использовать уже написанное ==
-    bool operator!= (const Vector3D& v2) const{
-        return x != v2.x || y != v2.y || z != v2.z;
-    };
-
-    // —умма двух векторов, исходные вектора не мен€ютс€, возвращаетс€ новый вектор
     Vector3D operator+ (const Vector3D& v2) const{
         return Vector3D(x + v2.x, y + v2.y, z + v2.z);
     };
 
-    // ¬ычитание векторов, исходные вектора не мен€ютс€, возвращаетс€ новый вектор
     Vector3D operator- (const Vector3D& v2) const{
         return Vector3D(x - v2.x, y - v2.y, z - v2.z);
     };
 
-    // ќператор умножени€ вектора на скал€р, исходный вектор не мен€етс€, возвращаетс€ новый вектор
     Vector3D operator* (const double a) const{
         return Vector3D(x*a , y*a, z*a);
     };
 
-    Vector3D operator* (const Vector3D& v2) const{
-        return Vector3D(x*v2.getX() , y*v2.getY(), z*v2.getZ());
+    double operator* (const Vector3D& v2) const{
+        return x*v2.getX() + y*v2.getY() + z*v2.getZ();
     };
 };
 
@@ -75,14 +60,11 @@ Vector3D operator* (double a, const Vector3D& v){
     return Vector3D(v.getX()*a, v.getY()*a, v.getZ()*a);
 };
 
-
-// ¬ывод вектора, ожидаетс€ строго в формате (1; 1)
 std::ostream& operator<<(std::ostream& os, const Vector3D& v) {
     os << "(" << v.getX() << "; " << v.getY() << "; " <<v.getZ() << ")";
     return os;
 };
 
-// „тение вектора, читает просто две координаты без хитростей
 std::istream& operator>>(std::istream &is, Vector3D &v){
     double x, y, z;
     is >> x >> y >> z;
@@ -113,7 +95,6 @@ public:
     };
 
     ~Matrix3D(){
-         delete[] this->data;
     }
 
     double getM(int i, int j) const{
@@ -221,7 +202,6 @@ std::ostream& operator<<(std::ostream& os, const Matrix3D& m) {
     return os;
 };
 
-// „тение вектора, читает просто две координаты без хитростей
 std::istream& operator>>(std::istream &is, Matrix3D &m){
     double a[3][3];
     for (int i=0; i<3; i++)
